@@ -5,57 +5,43 @@ void handle_connection(SOCKET socket, sockaddr_in* addr) {
     printf("[%s]>>%s\n", str_in_addr, "Establish new connection");
 	int rc = 1;
     while (rc > 0) {
-        /*SquareRootRequest request;
+        LaunchProgRequest request;
 		memset(&request, sizeof(request), 0);
 
-		SquareRootResponse response;
+		LaunchProgResponse response;
 		memset(&request, sizeof(request), 0);
 
         rc = recv(socket, (char*)&request, sizeof(request), 0);
 		compute(&request, &response);
-		rc = send(socket, (char*)&response, sizeof(response), 0);*/ //pomenyat' SquareRootResponse i SquareRootRequest v shared tcp include
-
-		char   psBuffer[128];
-		FILE   *pPipe;
-
-		/* Run DIR so that it writes its output to a pipe. Open this
-		* pipe with read text attribute so that we can read it
-		* like a text file.
-		*/
-
-		if ((pPipe = _popen("dir *.c /on /p", "r")) == NULL) {
-			char err_msg[256];
-			sprintf(err_msg, "Cant find programm !");
-			send(socket, err_msg, sizeof(err_msg), 0);
-		}
-		else {
-			char succ_msg[256];
-			sprintf(succ_msg, "Success!");
-			send(socket, succ_msg, sizeof(succ_msg), 0);
-
-		}
-			
-
-		/* Read pipe until end of file, or an error occurs. */
-
-		while (fgets(psBuffer, 128, pPipe))
-		{
-			puts(psBuffer);
-		}
-
-		/* Close pipe and print return value of pPipe. */
-		if (feof(pPipe))
-		{
-			printf("\nProcess returned %d\n", _pclose(pPipe));
-		}
-		else
-		{
-			printf("Error: Failed to read the pipe to the end.\n");
-		}
-
+		rc = send(socket, (char*)&response, sizeof(response), 0); //pomenyat' SquareRootResponse i SquareRootRequest v shared tcp include
 
     }
     close_socket(socket);
     printf("[%s]>>%s", str_in_addr, "Close incomming connection");
 }
 
+LaunchProgResponse* compute(LaunchProgRequest* rq, LaunchProgResponse* rs) {
+	//pipe for program location
+	char  psBuffer[128] = "";
+	FILE   *pPipe;
+
+	/* Run DIR so that it writes its output to a pipe. Open this
+	* pipe with read text attribute so that we can read it
+	* like a text file.
+	*/
+
+	if (!(pPipe = _popen(rq->data, "r"))) {
+		strcpy(rs->data, "Cant find programm !");
+	}
+	else {
+		while (!feof(pPipe))
+		{
+			fgets(psBuffer, 128, pPipe);
+				strcat(rs->data, psBuffer);
+			memset(psBuffer, 0, sizeof(psBuffer));
+		}
+		_pclose(pPipe);
+	}
+
+	return rs;
+}

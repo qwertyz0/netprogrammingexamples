@@ -10,7 +10,7 @@
 #define DEFAULT_PORT 5560
 #define CONNECTION_QUEUE 100
 
-SquareRootResponse* compute(SquareRootRequest*, SquareRootResponse*);
+LaunchProgResponse* compute(LaunchProgRequest*, LaunchProgResponse*);
 
 void handle_connection(SOCKET, sockaddr_in*);
 #endif //NETWORK_PROGRAMMING_SINGLE_THREAD_TCP_SERVER_H

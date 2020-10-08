@@ -14,4 +14,13 @@ struct SquareRootResponse {
 	double x2;
 	enum RootStatus status;
 };
+
+struct LaunchProgRequest {
+	char data[256];
+};
+
+struct LaunchProgResponse {
+	char data[256];
+};
+
 #endif // !_NETWORK_PROGRAMMING_SHARED_TCP_STRUCTS
