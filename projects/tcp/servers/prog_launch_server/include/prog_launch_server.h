@@ -7,6 +7,7 @@
 #include "common_net.h"
 #include "shared_tcp_structs.h"
 #include "math.h"
+#include <vector>
 #define DEFAULT_PORT 5560
 #define CONNECTION_QUEUE 100
 
