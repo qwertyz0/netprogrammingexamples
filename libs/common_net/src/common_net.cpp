@@ -65,7 +65,7 @@ bool parse_cmd(int argc, char* argv[], char* host, short* port)
     for (int i = 0; i < count_vars; ++i) {
         memset(tmp_hosts[i], 0, host_buf_sz);
     }
-    const char* formats[count_vars] = { "%s : %d", "-p %d -h %s", "-p %d" };
+    const char* formats[count_vars] = { "-h %s -p %d", "-p %d -h %s", "-p %d" };
 
     int results[] = {
             sscanf(all_args, formats[0], tmp_hosts[0], &tmp_ports[0]) - 2,
