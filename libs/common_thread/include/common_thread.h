@@ -8,11 +8,7 @@
 typedef HANDLE THREAD_HANDLE;
 typedef DWORD PROCESS_ID;
 
-<<<<<<< HEAD
-#define THREAD_RESULT DWORD //THREAD_VOID void
-=======
 #define THREAD_RESULT DWORD
->>>>>>> 8d669f550e6f0b25776c1e5b0fef75dafba1b068
 
 #elif __linux__
 

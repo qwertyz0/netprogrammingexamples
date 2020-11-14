@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
         //     return -1;
         // }
         //handle_connection(socket, &incom_addr);
-        connection_pool.push_back(create_thread(handle_connection, (SOCKET*)socket));
+        connection_pool.push_back(create_thread(handle_connection, &socket));
     }
 
     close_socket(server_socket);
