@@ -16,27 +16,12 @@ int main(int argc, char *argv[]) {
     common_init_handler();
 
     CHECK_IO((server_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) > 0, -1, "Can't create socket\n") ;
-    // if (server_socket <= 0) {
-    //     error_msg("Can't create socket");
-    //     return -1;
-    // }
+
 
     sockaddr_in server_addr;
     init_inet_address(&server_addr, host, port);
 
     //Bind socket to the address on the server
-
-    // if (bind(server_socket, (sockaddr *) &server_addr, sizeof(sockaddr))) {
-    //     char err_msg[128] = "";
-    //     sprintf(err_msg, "Can't bind socket to the port %d", port);
-    //     error_msg(err_msg);
-    //     return -1;
-    // }
-
-    // if (listen(server_socket, CONNECTION_QUEUE)) {
-    //     error_msg("Error listening socket");
-    //     return -1;
-    // }
 
     CHECK_IO(!bind(server_socket, (sockaddr *) &server_addr, sizeof(sockaddr)), -1, "Can't bind socket to the port %d \n", port);
 
@@ -49,12 +34,8 @@ int main(int argc, char *argv[]) {
         memset(&incom_addr, 0, sizeof(incom_addr));
         socklen_t len = sizeof(incom_addr);
         SOCKET socket;  
+
         CHECK_IO((socket = accept(server_socket, (sockaddr *) &incom_addr, &len)) > 0, -1, "Can't accept connection\n");
-        // if (socket <= 0) {
-        //     error_msg("Can't accept connection");
-        //     return -1;
-        // }
-        //handle_connection(socket, &incom_addr);
         connection_pool.push_back(create_thread(handle_connection, &socket));
     }
 
