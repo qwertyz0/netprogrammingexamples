@@ -1,0 +1,8 @@
+#ifndef NETWORK_PROGRAMMING_SIMPLE_HTTP_TCP_CLIENT_H
+#define NETWORK_PROGRAMMING_SIMPLE_HTTP_TCP_CLIENT_H
+
+#include "common_net.h"
+#include "common_utils.h"
+
+
+#endif //NETWORK_PROGRAMMING_SIMPLE_HTTP_TCP_CLIENT_H
